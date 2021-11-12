@@ -1,0 +1,64 @@
+# Mikrotik-blockList
+
+# Herein lies some information for the installation and configuration of the lists usage. Also some controls and checks which are easy to use for testing configuration.
+
+# You may upoad your .rsc to an accessible website and then use a script in your Mikrotik devices to fetch the file and install the list. 
+# this makes it easier to manage / edit your list from one place and let your devices download and update upon a schedule.
+
+# In my case i use this code in the script section of Mikrotik and call the script Blacklist
+
+
+# Create a script and name it :-
+
+DownloadBlackList
+
+# the body content :-
+
+/tool fetch url="https://www.worldwidetech.com.au/blacklist.rsc" mode=http;
+:log info "Downloaded Blacklist.rsc from WorldWideTech.com.au";
+
+
+
+
+# When you run the script and it completes properly you will see the file named "your file name" appear in the Mikrotik Files section. 
+# In the case above you will download a file named blacklist.rsc
+
+# Create a script which replaces the old lists with the new downloaded lists 
+
+#Name the script :-
+
+ReplaceBlackList
+
+
+#Contents of the script:-
+
+
+
+/ip firewall address-list remove [find where comment="blacklist"]
+/import file-name=blacklist.rsc;
+:log info "Removed old Blacklist records and imported new list";
+
+
+# When you run this script you will see the list created and the additional sites if any populate into the address list on the mikrotik
+
+# You will now need to create a schedule to download and run the script on a regular interval if you wish to automate the system.
+
+# Create a Schedule and name it :-
+
+DownloadBlackList
+
+# The content of the schedule will be the name of the script, in my case, in the case above >-
+DownloadBlackList
+
+# Create a schedule to install / Replace the old list with the new
+# Name it :- 
+Install DownloadBlackList
+
+
+Contents of the schedule :-
+
+ReplaceDownloadBlackList
+
+
+# Important the naming convention is usually the problem with non functional list, check and check again...
+
