@@ -1,0 +1,18 @@
+# Mikrotik-blockList
+
+# so now that you have the scripts, schedules and laist up and running, why doesnt the mikrotik block anything on the actual list??
+# One more step.
+
+
+# Go to IP/ Firewall / Raw
+# Create a new rule
+# General / Chain = prerouting
+# Advanced / Dst. Address List = Blacklist  ( choose from Dropdown )
+# Action / Action = drop
+# Apply it, close it and test it,, Visit one of the Blacklist sites, it should not open and you should see some statitistics clocking up in the raw section dropped Bytes and Packets.
+# Test the drop rule by adding Facebook  to the Blacklist manually and see how you go. 
+
+# Here is the code
+
+add action=drop chain=prerouting comment=" Blacklist" dst-address-list=\
+    Blacklist
