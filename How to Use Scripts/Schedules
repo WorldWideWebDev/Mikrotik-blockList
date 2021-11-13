@@ -8,6 +8,8 @@
 # In my case i use this code in the script section of Mikrotik and call the script Blacklist
 
 
+##  First the download script 
+
 # Create a script and name it :-
 
 DownloadBlackList
@@ -19,9 +21,14 @@ DownloadBlackList
 
 
 
+## Test
 
 # When you run the script and it completes properly you will see the file named "your file name" appear in the Mikrotik Files section. 
 # In the case above you will download a file named blacklist.rsc
+
+
+## The script which loads the list
+
 
 # Create a script which replaces the old lists with the new downloaded lists 
 
@@ -39,7 +46,13 @@ ReplaceBlackList
 :log info "Removed old Blacklist records and imported new list";
 
 
+## Test 
+
+
 # When you run this script you will see the list created and the additional sites if any populate into the address list on the mikrotik
+
+
+## Scheduling
 
 # You will now need to create a schedule to download and run the script on a regular interval if you wish to automate the system.
 
@@ -51,6 +64,7 @@ DownloadBlackList
 DownloadBlackList
 
 # Create a schedule to install / Replace the old list with the new
+
 # Name it :- 
 Install DownloadBlackList
 
